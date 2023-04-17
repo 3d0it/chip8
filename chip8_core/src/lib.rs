@@ -196,6 +196,20 @@ impl Emu {
                 self.v_reg[x] |= self.v_reg[y];
             }
 
+            // VX &= VY
+            (8, _, _, 2) => {
+                let x = digit2 as usize;
+                let y = digit3 as usize;
+                self.v_reg[x] &= self.v_reg[y];
+            }
+
+            // VX ^= VY
+            (8, _, _, 3) => {
+                let x = digit2 as usize;
+                let y = digit3 as usize;
+                self.v_reg[x] ^= self.v_reg[y];
+            }
+
             // VX += VY
             (8, _, _, 4) => {
                 let x = digit2 as usize;
@@ -418,7 +432,7 @@ impl Emu {
                 }
             }
 
-            (_, _, _, _) => unimplemented!("Unimplemented opcode: {}", op),
+            (_, _, _, _) => unimplemented!("Unimplemented opcode: {op}, digit1:{digit1}, digit2:{digit2}, digit3:{digit3}, digit4:{digit4}"),
         }
     }
 
